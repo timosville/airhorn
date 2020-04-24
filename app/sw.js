@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  *
  *  Air Horner
@@ -46,6 +47,28 @@ self.addEventListener('fetch', event => {
     caches.open(cacheName)
       .then(cache => cache.match(event.request, {ignoreSearch: true}))
       .then(response => {
+=======
+const cacheName = "airhoner";
+const cacheResources = [
+  "/",
+  "/index.html",
+  "/index.html?homescreen=1",
+  "/?homescreen=1",
+  "/styles/main.css",
+  "/scripts/main.min.js",
+  "/sounds/airhorn.mp3",
+];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(cacheName).then((cache) => cache.addAll(cacheResources))
+  );
+});
+
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+>>>>>>> code-lab
       return response || fetch(event.request);
     })
   );
